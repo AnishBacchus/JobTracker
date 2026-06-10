@@ -15,4 +15,21 @@ def init_db():
         )
         """)
 
+def add_application(role, company, application_date, status, note):
+    with sqlite3.connect("jobs.db") as conn:
+        cursor = conn.cursor()
 
+        cursor.execute("""
+                       INSERT INTO applications (role, company, application_date, status, note) 
+                       values (?, ?, ?, ?, ?)
+                    """, (role, company, application_date, status, note))
+        
+
+
+def get_applications():
+    with sqlite3.connect("jobs.db") as conn:
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM applications")
+        jobs_applied = cursor.fetchall()
+        return jobs_applied
