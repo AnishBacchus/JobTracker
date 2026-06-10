@@ -12,8 +12,24 @@ def display_applications(applications):
     table.add_column("Status")
     table.add_column("Notes")
 
-    for application in applications:
-        table.add_row(application[1], application[2], application[3] or "-", application[4], application[5] or "N/A")
 
-    console.print("Job Tracker", style="blue")
+    status_colors = {
+            "Applied" : "white",
+            "Interviewing" : "yellow",
+            "Rejected" : "red",
+            "Offer" : "green"
+        }
+    
+    for application in applications:
+        
+        status = application[4]
+        color = status_colors.get(status, 'white')
+        colored_status = f"[{color}]{status}[/{color}]"
+
+
+        table.add_row(application[1], application[2], application[3] or "-", colored_status, application[5] or "N/A")
+
+    console.print("")
+    console.print("Welcome to your Job Tracker!", style="bold dark_slate_gray2")
+    console.print("Here are all the jobs you applied for :")
     console.print(table)
