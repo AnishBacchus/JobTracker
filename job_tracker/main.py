@@ -1,5 +1,6 @@
 import argparse
 from job_tracker.database import init_db, add_application, get_applications
+from job_tracker.display import display_applications
 
 def main():
     init_db()
@@ -27,7 +28,7 @@ def main():
     if args.command == "add":
         add_application(args.role, args.company, args.application_date, args.status, args.note)
     elif args.command == "all":
-        print(get_applications())
+        display_applications(get_applications())
 
 
 if __name__ == "__main__":
